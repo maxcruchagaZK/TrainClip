@@ -28,7 +28,7 @@ github.io ni hagas campañas antes de conectar el dominio. Si eliges otro domini
 
 ## Formulario
 
-Por ahora el formulario abre el programa de correo de la persona, con el mensaje listo para `info@trainclip.com`. Para que envíe directo, pon la dirección del servicio de formularios en `data-endpoint`, en `index.html` y `en/index.html`, y haz una prueba real.
+El formulario envía los mensajes a `info@trainclip.com` a través de Web3Forms, porque GitHub Pages no guarda datos. La dirección está en `data-endpoint` y la clave pública en el campo oculto `access_key`, en `index.html` y `en/index.html`. La clave y el correo de destino se administran en app.web3forms.com.
 
 ## Cambios frecuentes
 
