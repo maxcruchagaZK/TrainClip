@@ -26,16 +26,11 @@ para compartir en redes ya apuntan a `https://trainclip.com`. No promociones la 
 github.io ni hagas campañas antes de conectar el dominio. Si eliges otro dominio, reemplaza
 `trainclip.com` en esos archivos y en ambas páginas.
 
-## Conectar el formulario
+## Formulario
 
-El formulario necesita un servicio externo porque GitHub Pages no guarda datos.
-Mientras no lo conectes, al enviarlo se abre el programa de correo de la persona con el mensaje listo.
+El formulario envía los mensajes a `info@trainclip.com` a través de FormSubmit, porque GitHub Pages no guarda datos. La dirección está en `data-endpoint`, en `index.html` y `en/index.html`.
 
-1. Crea una cuenta en un servicio de formularios, como Formspree, usando `info@trainclip.com`.
-2. Crea un formulario y copia su dirección de envío.
-3. En `index.html` y `en/index.html`, busca `data-endpoint=""` y pega ahí esa dirección.
-
-Haz una prueba real antes de publicar la página.
+Si cambias el correo, cambia esa dirección en ambas páginas y confirma el correo de activación que envía FormSubmit.
 
 ## Cambios frecuentes
 
