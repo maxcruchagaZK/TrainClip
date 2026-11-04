@@ -28,9 +28,7 @@ github.io ni hagas campañas antes de conectar el dominio. Si eliges otro domini
 
 ## Formulario
 
-El formulario envía los mensajes a `info@trainclip.com` a través de FormSubmit, porque GitHub Pages no guarda datos. La dirección está en `data-endpoint`, en `index.html` y `en/index.html`.
-
-Si cambias el correo, cambia esa dirección en ambas páginas y confirma el correo de activación que envía FormSubmit.
+Por ahora el formulario abre el programa de correo de la persona, con el mensaje listo para `info@trainclip.com`. Para que envíe directo, pon la dirección del servicio de formularios en `data-endpoint`, en `index.html` y `en/index.html`, y haz una prueba real.
 
 ## Cambios frecuentes
 
