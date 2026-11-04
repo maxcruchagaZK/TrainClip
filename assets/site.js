@@ -64,8 +64,13 @@
     }
     if(end){
       btn.disabled=true;notice.hidden=true;
+      data.append('_subject',t.subject+data.get('empresa'));
+      data.append('_replyto',data.get('correo'));
       fetch(end,{method:'POST',body:data,headers:{Accept:'application/json'}}).then(function(r){
         if(!r.ok)throw new Error(r.status);
+        return r.json();
+      }).then(function(res){
+        if(String(res.success)==='false')throw new Error(res.message||'not sent');
         success(t.sent,t.reply+data.get('correo')+'.');
       }).catch(function(){
   var isEn=(document.documentElement.lang||'').indexOf('en')===0;
