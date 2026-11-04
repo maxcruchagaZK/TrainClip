@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://trainclip.com/sitemap.xml
