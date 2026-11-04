@@ -64,9 +64,11 @@
     }
     if(end){
       btn.disabled=true;notice.hidden=true;
-      data.append('_subject',t.subject+data.get('empresa'));
-      data.append('_replyto',data.get('correo'));
-      fetch(end,{method:'POST',body:data,headers:{Accept:'application/json'}}).then(function(r){
+      data.append('subject',t.subject+data.get('empresa'));
+      data.append('from_name','TrainClip');
+      data.append('replyto',data.get('correo'));
+      var stop=new AbortController();setTimeout(function(){stop.abort();},15000);
+      fetch(end,{method:'POST',body:data,headers:{Accept:'application/json'},signal:stop.signal}).then(function(r){
         if(!r.ok)throw new Error(r.status);
         return r.json();
       }).then(function(res){
