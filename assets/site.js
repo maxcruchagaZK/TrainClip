@@ -13,10 +13,26 @@
     subject:'Contacto web: ',opened:'Se abrió tu programa de correo con el mensaje listo. Envíalo desde ahí para que nos llegue.',
     labels:['Nombre','Correo','Empresa','Paquete','Qué quiero enseñar']
   };
-  /* Solo suena un video a la vez. */
+  /* Eventos de GA4. Si la etiqueta no cargó, no hacen nada. */
+  function track(name,params){if(window.gtag)window.gtag('event',name,params||{});}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]');
+    if(!a)return;
+    var href=a.getAttribute('href');
+    if(href.indexOf('https://wa.me/')===0)track('whatsapp_click');
+    else if(href.indexOf('mailto:')===0)track('email_click');
+  });
+
+  /* Solo suena un video a la vez. video_play cuenta la primera reproducción de cada video. */
   var clips=[].slice.call(document.querySelectorAll('.clips video'));
   clips.forEach(function(v){
-    v.addEventListener('play',function(){clips.forEach(function(o){if(o!==v)o.pause();});});
+    var counted=false,src=v.querySelector('source');
+    v.addEventListener('play',function(){
+      clips.forEach(function(o){if(o!==v)o.pause();});
+      if(counted)return;
+      counted=true;
+      track('video_play',{video_language:/muestra-en/.test(src?src.getAttribute('src'):'')?'en':'es'});
+    });
   });
 
   /* Los botones de cada paquete dejan elegido ese paquete en el formulario. */
@@ -73,22 +89,9 @@
         return r.json();
       }).then(function(res){
         if(String(res.success)==='false')throw new Error(res.message||'not sent');
+        track('generate_lead',{package:data.get('paquete')});
         success(t.sent,t.reply+data.get('correo')+'.');
       }).catch(function(){
-  var isEn=(document.documentElement.lang||'').indexOf('en')===0;
-  var t=isEn?{
-    name:'Enter your name.',mail:'Enter a valid email, like name@company.com.',company:'Enter your company name.',
-    preview:'This is a preview: the form does not send messages yet.',sent:'We got your message',reply:'We will reply to ',
-    fail:'We could not send your message. Check your connection and try again, or email us at ',
-    subject:'Website contact: ',opened:'Your email app opened with the message ready. Send it from there so it reaches us.',
-    labels:['Name','Email','Company','Package','What I need to teach']
-  }:{
-    name:'Escribe tu nombre.',mail:'Escribe un correo válido, como nombre@empresa.cl.',company:'Escribe el nombre de tu empresa.',
-    preview:'Esta es una vista previa: el formulario todavía no envía mensajes.',sent:'Recibimos tu mensaje',reply:'Te responderemos a ',
-    fail:'No pudimos enviar el mensaje. Revisa tu conexión e inténtalo otra vez, o escríbenos a ',
-    subject:'Contacto web: ',opened:'Se abrió tu programa de correo con el mensaje listo. Envíalo desde ahí para que nos llegue.',
-    labels:['Nombre','Correo','Empresa','Paquete','Qué quiero enseñar']
-  };
         btn.disabled=false;
         say(t.fail+mail+'.',true);
       });
